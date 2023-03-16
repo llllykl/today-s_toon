@@ -14,12 +14,11 @@ class ApiService {
     List<WebtoonModel> webtoonInstances = [];
     final url = Uri.parse('$baseUrl/$today');
     final response = await http.get(url);
-
     if (response.statusCode == 200) {
-      // response.body에는 서버가 보낸 데이터가 있음
-      final List<dynamic> webtoons = jsonDecode(response.body);
+      final webtoons = jsonDecode(response.body);
       for (var webtoon in webtoons) {
-        webtoonInstances.add(WebtoonModel.fromJson(webtoon));
+        final instance = WebtoonModel.fromJson(webtoon);
+        webtoonInstances.add(instance);
       }
       return webtoonInstances;
     }
